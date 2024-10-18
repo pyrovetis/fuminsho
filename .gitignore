@@ -291,5 +291,8 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# django static files
+public/
+
 # django-compressor
 static/CACHE
