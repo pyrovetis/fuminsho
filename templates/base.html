@@ -1,0 +1,41 @@
+{% load compress %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}fuminshō{% endblock %}</title>
+
+    {# icons #}
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static "assets/images/icons/apple-touch-icon.png" %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static "assets/images/icons/favicon-32x32.png" %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static "assets/images/icons/favicon-16x16.png" %}">
+    <link rel="manifest" href="{% static "assets/images/icons/site.webmanifest" %}">
+
+    {% compress css %}
+        {# Tailwind + Flowbite #}
+        <link rel="stylesheet" href="{% static "assets/css/style.css" %}">
+    {% endcompress %}
+    {% compress js %}
+        {# Flowbite javascript #}
+        <script src="{% static "assets/js/libs/flowbite.min.js" %}" defer></script>
+        {# simple datatables #}
+        <script src="{% static "assets/js/libs/simple-datatables.min.js" %}" defer></script>
+    {% endcompress %}
+
+    {% block head %}{% endblock %}
+</head>
+
+<body class="bg-gray-900 text-gray-100 dark pt-16">
+<c-navbar :path="{{ path }}"></c-navbar>
+<main class="container mx-auto mt-4" role="main">
+    {% block content %}{% endblock %}
+</main>
+<c-footer></c-footer>
+</body>
+
+</html>

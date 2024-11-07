@@ -1,0 +1,237 @@
+{% extends "base.html" %}
+{% load compress %}
+{% load static %}
+
+{% block head %}
+    {% compress js %}
+        <script src="{% static "assets/js/pages/genre.js" %}" defer></script>
+        <script src="{% static "assets/js/components/keybinds.js" %}" defer></script>
+        <script src="{% static "assets/js/components/loading.js" %}" defer></script>
+    {% endcompress %}
+{% endblock %}
+
+{% block content %}
+    <section>
+        <div class="overflow-x-auto pb-8 px-4 mx-auto max-w-screen-2xl sm:pb-8 lg:px-6">
+            <nav class="flex" aria-label="Breadcrumb">
+                <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+                    <li class="inline-flex items-center">
+                        <a href="{% url "index" %}"
+                           class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                            <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                 fill="currentColor" viewBox="0 0 20 20">
+                                <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
+                            </svg>
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <div class="flex items-center">
+                            <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true"
+                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                      stroke-width="2" d="m1 9 4-4-4-4"/>
+                            </svg>
+                            <a href="{% url "genres" %}"
+                               class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Genres</a>
+                        </div>
+                    </li>
+                    <li aria-current="page">
+                        <div class="flex items-center">
+                            <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true"
+                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="m1 9 4-4-4-4"/>
+                            </svg>
+                            <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">{{ genre.name | title }}</span>
+                        </div>
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+
+    <section class="relative">
+        <c-loading></c-loading>
+        <div class="overflow-x-auto pb-8 px-4 mx-auto max-w-screen-2xl sm:pb-16 lg:px-6">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400" id="table">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th>
+                        <span class="flex items-center">Thumbnail</span>
+                    </th>
+                    <th>
+                    <span class="flex items-center">
+                        Position
+                    <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                         height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
+                    </svg>
+                    </span>
+                    </th>
+                    <th>
+                    <span class="flex items-center">
+                        Name
+                    <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                         height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
+                    </svg>
+                    </span>
+                    </th>
+                    <th>
+                    <span class="flex items-center">
+                        Duration
+                    <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                         height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
+                    </svg>
+                    </span>
+                    </th>
+                    <th>
+                    <span class="flex items-center">
+                        Genres
+                    <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                         height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
+                    </svg>
+                    </span>
+                    </th>
+                    <th>
+                    <span class="flex items-center">
+                        Songs
+                    <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                         height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
+                    </svg>
+                    </span>
+                    </th>
+                    <th>
+                    <span class="flex items-center">
+                        Published at
+                    <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                         height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
+                    </svg>
+                    </span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for playlist in playlists %}
+                    <tr class="border-b dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4">
+                            <a href="{{ playlist.link }}"
+                               class="font-medium text-white-600 dark:text-white-500 hover:underline">
+                                <img src="{{ playlist.thumbnails }}" alt="{{ playlist.title }}"
+                                     class="w-32 h-[72px] aspect-video object-cover rounded-sm saturate-50"
+                                     loading="lazy"
+                                     width="112"
+                                     height="63">
+                            </a>
+                        </th>
+                        <td class="px-6 py-4">
+                            {{ playlist.position }}
+                        </td>
+                        <th scope="row"
+                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <a href="{{ playlist.link }}"
+                               class="font-medium text-white-600 dark:text-white-500 hover:underline"
+                               title="{{ playlist.title }}">{{ playlist.title | truncatechars:75 }}</a>
+                        </th>
+                        <td class="px-6 py-4">
+                            {{ playlist.duration }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {% if playlist.genres.count %}
+                                <span class="font-normal text-gray-700 dark:text-gray-400"
+                                      data-popover-trigger="popover-{{ playlist.pk }}">
+                                    {{ playlist.genres.count }}
+                                </span>
+
+                                <div data-popover id="popover-{{ playlist.pk }}" role="tooltip"
+                                     class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                                    <div class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                                        <h3 class="font-semibold text-gray-900 dark:text-white">Genres</h3>
+                                    </div>
+                                    <div class="px-3 py-2">
+                                        {% for genre in playlist.genres.all %}
+                                            <p class="mb-2">{{ genre.name | title }}</p>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% else %}
+                                <span class="text-gray-400 dark:text-gray-500">Unknown</span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4">
+                            {% if playlist.songs.count %}
+                                <span class="font-normal text-gray-700 dark:text-gray-400 cursor-pointer hover:underline"
+                                      data-modal-trigger="modal-{{ playlist.pk }}">
+                                    {{ playlist.songs.count }}
+                                </span>
+
+                                <div id="modal-{{ playlist.pk }}" tabindex="-1"
+                                     class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                    <div class="relative w-full max-w-md max-h-full">
+                                        <!-- Modal content -->
+                                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                            <!-- Modal header -->
+                                            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                                <h3 class="text-xl font-medium text-gray-900 dark:text-white">
+                                                    Songs
+                                                </h3>
+                                                <button type="button"
+                                                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                        data-modal-hide="modal-{{ playlist.pk }}">
+                                                    <svg class="w-3 h-3" aria-hidden="true"
+                                                         xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                         viewBox="0 0 14 14">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                              stroke-linejoin="round"
+                                                              stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                    </svg>
+                                                    <span class="sr-only">Close modal</span>
+                                                </button>
+                                            </div>
+                                            <!-- Modal body -->
+                                            <div class="p-4 md:p-5 space-y-4">
+                                                <div class="px-3 py-2 text-gray-100 text-base">
+                                                    {% for song in playlist.playlistsong_set.all %}
+                                                        <p class="mb-2">
+                                                            {% if song.song.artist %}
+                                                                {{ song.song.artist }} -
+                                                            {% endif %}
+                                                            {{ song.song.title }}
+                                                            {% if song.position %}
+                                                                <span class="text-gray-500">[{{ song.position }}]</span>
+                                                            {% endif %}
+                                                        </p>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <span class="text-gray-400 dark:text-gray-500">Unknown</span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ playlist.published_at | date:"Y-m-d" }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <c-keybinds></c-keybinds>
+{% endblock %}

@@ -1,0 +1,39 @@
+<section class="bg-white dark:bg-gray-900 border-y border-gray-200/50 dark:border-gray-800/50">
+    <div class="gap-16 items-center py-8 px-4 mx-auto max-w-screen-2xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
+        <div class="font-light text-gray-500 sm:text-lg dark:text-gray-400">
+            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">What is fuminshō?</h2>
+            <p class="mb-4">I made fuminshō to solve a personal problem—I've got over 500+ videos saved in a YouTube
+                playlist, and finding what I want was becoming a hassle. So, I built this app to make it easier for
+                myself (and others) to organize and explore playlists.</p>
+            <p>It's designed to help you quickly sift through your playlists, no matter how big they are. I use it, but
+                feel free to give it a try and enjoy!</p>
+        </div>
+        <div class="grid grid-cols-2 gap-4 mt-8">
+            {% with recent_playlists.0 as recent_playlist %}
+                <div id="tooltip-1" role="tooltip"
+                     class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                    {{ recent_playlist.title }}
+                    <div class="tooltip-arrow" data-popper-arrow></div>
+                </div>
+                <a href="{{ recent_playlist.link }}">
+                    <img class="w-full rounded-lg saturate-50"
+                         src="{{ recent_playlist.thumbnails }}"
+                         alt="{{ recent_playlist.title }}" data-tooltip-target="tooltip-1" width="348" height="213">
+                </a>
+            {% endwith %}
+
+            {% with recent_playlists.1 as recent_playlist %}
+                <div id="tooltip-2" role="tooltip"
+                     class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                    {{ recent_playlist.title }}
+                    <div class="tooltip-arrow" data-popper-arrow></div>
+                </div>
+                <a href="{{ recent_playlist.link }}">
+                    <img class="mt-4 w-full lg:mt-10 rounded-lg saturate-50"
+                         src="{{ recent_playlist.thumbnails }}"
+                         alt="{{ recent_playlist.title }}" data-tooltip-target="tooltip-2" width="348" height="213">
+                </a>
+                </div>
+            {% endwith %}
+    </div>
+</section>

@@ -1,0 +1,19 @@
+meta {
+  name: comment
+  type: http
+  seq: 2
+}
+
+get {
+  url: https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId={{video-id}}&maxResults=5&order=relevance&key={{google-api-key}}
+  body: none
+  auth: none
+}
+
+params:query {
+  part: snippet
+  videoId: {{video-id}}
+  maxResults: 5
+  order: relevance
+  key: {{google-api-key}}
+}

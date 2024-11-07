@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load compress %}
+{% load static %}
+
+{% block head %}
+    {% compress js %}
+        <script src="{% static 'assets/js/pages/index.js' %}" defer></script>
+    {% endcompress %}
+{% endblock %}
+
+{% block content %}
+    <c-hero image="{{ hero_image }}" alt="fuminshō"></c-hero>
+    <c-info :recent-playlists="recent_playlists"></c-info>
+    <c-stats :stats="{{ stats }}"></c-stats>
+    <c-eta></c-eta>
+{% endblock %}
+
+

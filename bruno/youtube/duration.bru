@@ -1,0 +1,17 @@
+meta {
+  name: duration
+  type: http
+  seq: 3
+}
+
+get {
+  url: https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id={{video-id}}&key={{google-api-key}}
+  body: none
+  auth: none
+}
+
+params:query {
+  part: contentDetails
+  id: {{video-id}}
+  key: {{google-api-key}}
+}

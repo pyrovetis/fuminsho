@@ -1,0 +1,19 @@
+meta {
+  name: playlist
+  type: http
+  seq: 1
+}
+
+get {
+  url: https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId={{playlist-id}}&maxResults=50&key={{google-api-key}}
+  body: none
+  auth: none
+}
+
+params:query {
+  part: snippet
+  playlistId: {{playlist-id}}
+  maxResults: 50
+  key: {{google-api-key}}
+  ~pageToken: 
+}

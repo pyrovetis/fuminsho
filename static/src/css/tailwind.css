@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* datatable */
+.datatable-active {
+    @apply bg-[#374151]/25;
+}

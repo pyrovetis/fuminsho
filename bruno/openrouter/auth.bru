@@ -1,0 +1,15 @@
+meta {
+  name: auth
+  type: http
+  seq: 1
+}
+
+get {
+  url: https://openrouter.ai/api/v1/auth/key
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{openrouter-api-key}}
+}
