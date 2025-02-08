@@ -1,8 +1,2 @@
 [phases.setup]
-aptPkgs = ["...", "python3", "gcc"]
-
-[phases.build]
-cmds = [
-    "python manage.py collectstatic --noinput",
-    "python manage.py compress",
-]
+aptPkgs = ["...", "django"]
