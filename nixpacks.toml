@@ -1,12 +1,11 @@
 # nixpacks.toml
 
 [build]
+# Specify the providers to use
+providers = ["python"]
+
 # Commands to run during the build phase
 commands = [
-    "python manage.py compress",
-    "python manage.py collectstatic --noinput"
+    "python manage.py compress", # Compress static files
+    "python manage.py collectstatic --noinput"  # Collect static files
 ]
-
-[start]
-# Command to run when starting the application
-command = "gunicorn myproject.wsgi:application --bind 0.0.0.0:8000"
