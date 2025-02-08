@@ -184,7 +184,7 @@ LOGGING = {
         "file": {
             "level": "DEBUG",
             "class": "logging.FileHandler",
-            "filename": BASE_DIR / "logs" / "log",
+            "filename": "logs/log",
             "formatter": "simple",
             "encoding": "utf-8",
         },
