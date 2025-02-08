@@ -1,1 +1,1 @@
-web: gunicorn -b 0.0.0.0:8000 -w 2 fuminsho.wsgi:application
+web: gunicorn -b 0.0.0.0:8000 -w 2 fuminsho.wsgi
