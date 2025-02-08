@@ -1,2 +1,7 @@
 providers = ['python']
 
+[phases.build]
+cmds = [
+    "python manage.py compress",
+    "python manage.py collectstatic --noinput",
+]
