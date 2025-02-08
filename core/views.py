@@ -136,7 +136,7 @@ class LogsView(BaseView):
     template_name = "pages/logs.html"
 
     def get(self, request):
-        log_file_path = os.path.join(settings.BASE_DIR, "logs.log")
+        log_file_path = os.path.join(settings.BASE_DIR, "logs", "log")
         try:
             with open(log_file_path, "r", encoding="utf-8") as log_file:
                 log_content = log_file.read()[-200_000:]
