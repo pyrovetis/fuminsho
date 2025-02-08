@@ -1,1 +1,1 @@
-web: gunicorn --bind 0.0.0.0:8000 --workers 2 fuminsho.wsgi
+web: gunicorn -b 0.0.0.0:8000 -w 2 fuminsho.wsgi:application
