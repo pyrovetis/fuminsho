@@ -1,0 +1,12 @@
+# nixpacks.toml
+
+[build]
+# Commands to run during the build phase
+commands = [
+    "python manage.py compress",
+    "python manage.py collectstatic --noinput"
+]
+
+[start]
+# Command to run when starting the application
+command = "gunicorn myproject.wsgi:application --bind 0.0.0.0:8000"
