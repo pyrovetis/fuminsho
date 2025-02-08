@@ -1,1 +1,1 @@
-web: python manage.py runserver 0.0.0.0:8000
+web: gunicorn -b 0.0.0.0:8000 -w 2 fuminsho.wsgi
