@@ -33,7 +33,7 @@ SECRET_KEY = env(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["0.0.0.0"]
 
 # Application definition
 
@@ -227,3 +227,5 @@ STATICFILES_FINDERS = (
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+CSRF_TRUSTED_ORIGINS = ["https://fuminsho.ir", "http://fuminsho.ir"]
