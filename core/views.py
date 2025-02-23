@@ -125,13 +125,6 @@ class GenreDetailView(BaseView):
         return self.render(context)
 
 
-class DonateView(BaseView):
-    template_name = "pages/donate.html"
-
-    def get(self, request):
-        return self.render()
-
-
 class LogsView(BaseView):
     template_name = "pages/logs.html"
 

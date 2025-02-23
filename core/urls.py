@@ -7,7 +7,6 @@ from core.views import (
     SongDetailView,
     GenreListView,
     GenreDetailView,
-    DonateView,
     LogsView,
 )
 
@@ -18,6 +17,5 @@ urlpatterns = [
     path("songs/<slug:slug>/", SongDetailView.as_view(), name="song"),
     path("genres/", GenreListView.as_view(), name="genres"),
     path("genres/<slug:slug>/", GenreDetailView.as_view(), name="genre"),
-    path("donate/", DonateView.as_view(), name="donate"),
     path("logs/", LogsView.as_view(), name="logs"),
 ]
