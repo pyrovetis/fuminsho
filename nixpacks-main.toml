@@ -1,9 +1,0 @@
-providers = ['python']
-
-[phases.build]
-cmds = [
-    "python manage.py compress",
-    "python manage.py collectstatic --noinput",
-]
-[start]
-cmd = "gunicorn -b 0.0.0.0:8000 -w 2 --log-file - --log-level debug fuminsho.wsgi"
