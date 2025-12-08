@@ -1,7 +1,7 @@
-import ftplib
 import hashlib
 import json
 import logging
+import os
 import re
 from dataclasses import dataclass
 from io import BytesIO
@@ -9,12 +9,14 @@ from typing import List, Optional
 
 import httpx
 import isodate
+from django.core.files.storage import default_storage
 from django.db.models import Q
 from django.utils import timezone
 from django.utils.text import slugify
 from PIL import Image
 
 from core.models import Genre, Playlist, Song
+from fuminsho import settings
 from fuminsho.settings import env
 
 logger = logging.getLogger("fuminsho")
@@ -158,8 +160,8 @@ class PlaylistManager:
             next_page_token = None
 
         self.bulk_update_db(playlist_items)
-        self.update_comments(playlist_items)
-        self.update_video_metadata(playlist_items)
+        # self.update_comments(playlist_items)
+        # self.update_video_metadata(playlist_items)
         self.update_thumbnails()
 
         if next_page_token:
@@ -179,24 +181,22 @@ class PlaylistManager:
         compressed_image_io.seek(0)
 
         try:
-            logger.info("🌐 Connecting to FTP server...")
-            with ftplib.FTP(self.ftp_host, self.ftp_user, self.ftp_pass) as ftp:
-                ftp.cwd(self.FTP_DIRECTORY)
+            logger.info("🌐 Uploading image to server...")
+            file_name_with_extension = f"{self.generate_hash(image_name)}.webp"
+            full_path = os.path.join(settings.MEDIA_ROOT, file_name_with_extension)
 
-                files = ftp.nlst()
-                file_name_with_extension = f"{self.generate_hash(image_name)}.webp"
+            if os.path.exists(full_path):
+                logger.info(f"📝 File already exists: {file_name_with_extension}")
+                return f"{settings.MEDIA_URL}{file_name_with_extension}"
 
-                if file_name_with_extension in files:
-                    logger.info(f"📝 File already exists at {file_name_with_extension}")
-                    return f"{self.CDN_BASE_URL}{file_name_with_extension}"
+            default_storage.save(full_path, compressed_image_io)
 
-                logger.info("⬆️ Uploading image to FTP server...")
-                ftp.storbinary(f"STOR {file_name_with_extension}", compressed_image_io)
-                return f"{self.CDN_BASE_URL}{file_name_with_extension}"
+            logger.info("⬆️ Uploading image to server...")
+            return f"{settings.MEDIA_URL}{file_name_with_extension}"
 
-        except ftplib.all_errors as e:
-            logger.error(f"❗ FTP Error: {e}")
-            raise Exception(f"FTP error: {e}")
+        except Exception as e:
+            logger.error(f"❗ Failed to upload thumbnail: {e}")
+            raise Exception(f"Failed to upload thumbnail: {e}")
 
     def update_thumbnails(self):
         if not all(env_var in env for env_var in ["FTP_HOST", "FTP_USER", "FTP_PASS"]):
