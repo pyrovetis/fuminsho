@@ -1,13 +1,13 @@
 from django.urls import path
 
 from core.views import (
-    IndexView,
-    PlaylistListView,
-    SongListView,
-    SongDetailView,
-    GenreListView,
     GenreDetailView,
+    GenreListView,
+    IndexView,
     LogsView,
+    PlaylistListView,
+    SongDetailView,
+    SongListView,
 )
 
 urlpatterns = [
