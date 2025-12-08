@@ -181,20 +181,6 @@ wheels = [
 ]
 
 [[package]]
-name = "django-minify-html"
-version = "1.10.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "asgiref" },
-    { name = "django" },
-    { name = "minify-html" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/de/df/4b6d1511f067d8e6f46bc67d64f70ef0cf202f01cbe35e4d7b6b3649aaf2/django_minify_html-1.10.0.tar.gz", hash = "sha256:1bae5742b54388b69346a6c29a7b193ab71f3cada038d633c36186c515fca228", size = 9993 }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/5e/ac/55870c436d4c8a18685031adffd5fc0200a3a521888249e9fe652506d477/django_minify_html-1.10.0-py3-none-any.whl", hash = "sha256:ed6a2e06c290107bc0ff38f26f5faa703c952cca9c142c191088493087482b5a", size = 7032 },
-]
-
-[[package]]
 name = "fuminsho"
 version = "0.1.0"
 source = { virtual = "." }
@@ -212,14 +198,12 @@ dependencies = [
     { name = "django-debug-toolbar" },
     { name = "django-environ" },
     { name = "django-extensions" },
-    { name = "django-minify-html" },
     { name = "gunicorn" },
     { name = "h11" },
     { name = "httpcore" },
     { name = "httpx" },
     { name = "idna" },
     { name = "isodate" },
-    { name = "minify-html" },
     { name = "mypy-extensions" },
     { name = "packaging" },
     { name = "pathspec" },
@@ -253,14 +237,12 @@ requires-dist = [
     { name = "django-debug-toolbar", specifier = "==4.4.6" },
     { name = "django-environ", specifier = "==0.11.2" },
     { name = "django-extensions", specifier = "==3.2.3" },
-    { name = "django-minify-html", specifier = "==1.10.0" },
     { name = "gunicorn", specifier = "==23.0.0" },
     { name = "h11", specifier = "==0.14.0" },
     { name = "httpcore", specifier = "==1.0.6" },
     { name = "httpx", specifier = "==0.27.2" },
     { name = "idna", specifier = "==3.10" },
     { name = "isodate", specifier = "==0.7.2" },
-    { name = "minify-html", specifier = "==0.15.0" },
     { name = "mypy-extensions", specifier = "==1.0.0" },
     { name = "packaging", specifier = "==24.1" },
     { name = "pathspec", specifier = "==0.12.1" },
@@ -346,12 +328,6 @@ sdist = { url = "https://files.pythonhosted.org/packages/54/4d/e940025e2ce31a8ce
 wheels = [
     { url = "https://files.pythonhosted.org/packages/15/aa/0aca39a37d3c7eb941ba736ede56d689e7be91cab5d9ca846bde3999eba6/isodate-0.7.2-py3-none-any.whl", hash = "sha256:28009937d8031054830160fce6d409ed342816b543597cece116d966c6d99e15", size = 22320 },
 ]
-
-[[package]]
-name = "minify-html"
-version = "0.15.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/0b/8a/c921cd4b3e364c871be418c1694b315e5fa823eb8180d89f99d9a61aa8fe/minify_html-0.15.0.tar.gz", hash = "sha256:cf4c36b6f9af3b0901bd2a0a29db3b09c0cdf0c38d3dde28e6835bce0f605d37", size = 96948 }
 
 [[package]]
 name = "mypy-extensions"

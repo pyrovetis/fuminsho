@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     # third party
     "compressor",
     "django_extensions",
-    "django_minify_html",
     "django_cotton",
     "debug_toolbar",
 ]
@@ -66,7 +65,6 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.gzip.GZipMiddleware",
     # third party middleware
-    "django_minify_html.middleware.MinifyHtmlMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
