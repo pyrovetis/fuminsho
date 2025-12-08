@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 import logging
-import os
 from pathlib import Path
 
 import environ
@@ -21,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 logger = logging.getLogger(__name__)
 
 env = environ.Env(DEBUG=(bool, False))
-env.read_env(os.path.join(BASE_DIR, ".env"))
+# env.read_env(os.path.join(BASE_DIR, ".env"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
