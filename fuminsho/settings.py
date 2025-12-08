@@ -98,13 +98,13 @@ WSGI_APPLICATION = "fuminsho.wsgi.application"
 
 # Check if PostgreSQL environment variables are set
 if all(
-        env_var in env
-        for env_var in [
-            "POSTGRES_DB",
-            "POSTGRES_USER",
-            "POSTGRES_PASSWORD",
-            "POSTGRES_HOST",
-        ]
+    env_var in env
+    for env_var in [
+        "POSTGRES_DB",
+        "POSTGRES_USER",
+        "POSTGRES_PASSWORD",
+        "POSTGRES_HOST",
+    ]
 ):
     DATABASES = {
         "default": {
@@ -160,6 +160,10 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+MEDIA_URL = "/public/"
+MEDIA_ROOT = BASE_DIR / "assets"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
