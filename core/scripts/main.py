@@ -160,8 +160,8 @@ class PlaylistManager:
             next_page_token = None
 
         self.bulk_update_db(playlist_items)
-        # self.update_comments(playlist_items)
-        # self.update_video_metadata(playlist_items)
+        self.update_comments(playlist_items)
+        self.update_video_metadata(playlist_items)
         self.update_thumbnails()
 
         if next_page_token:
@@ -183,16 +183,19 @@ class PlaylistManager:
         try:
             logger.info("🌐 Uploading image to server...")
             file_name_with_extension = f"{self.generate_hash(image_name)}.webp"
-            full_path = os.path.join(settings.MEDIA_ROOT, file_name_with_extension)
+            full_path = os.path.join(
+                settings.MEDIA_ROOT, "thumbnails", file_name_with_extension
+            )
+            file_address = f"{settings.MEDIA_URL}thumbnails/{file_name_with_extension}"
 
             if os.path.exists(full_path):
                 logger.info(f"📝 File already exists: {file_name_with_extension}")
-                return f"{settings.MEDIA_URL}{file_name_with_extension}"
+                return file_address
 
             default_storage.save(full_path, compressed_image_io)
 
             logger.info("⬆️ Uploading image to server...")
-            return f"{settings.MEDIA_URL}{file_name_with_extension}"
+            return file_address
 
         except Exception as e:
             logger.error(f"❗ Failed to upload thumbnail: {e}")
@@ -503,5 +506,5 @@ class PlaylistManager:
 
 def run(full_scan=False):
     playlist_manager = PlaylistManager(playlist_id=env("PLAYLIST_ID"))
-    playlist_manager.generate_playlist(full_scan=full_scan)
+    playlist_manager.generate_playlist(full_scan=True)
     playlist_manager.generate()
