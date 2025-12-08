@@ -9,12 +9,12 @@ from typing import List, Optional
 
 import httpx
 import isodate
-from PIL import Image
 from django.db.models import Q
 from django.utils import timezone
 from django.utils.text import slugify
+from PIL import Image
 
-from core.models import Playlist, Genre, Song
+from core.models import Genre, Playlist, Song
 from fuminsho.settings import env
 
 logger = logging.getLogger("fuminsho")
@@ -136,7 +136,7 @@ class PlaylistManager:
             Playlist.objects.bulk_create(creates)
 
     def generate_playlist(
-            self, page_token: Optional[str] = None, full_scan: Optional[bool] = False
+        self, page_token: Optional[str] = None, full_scan: Optional[bool] = False
     ):
         logger.info(
             f"🛠️ Creating playlist for 📂 Playlist ID: {self.playlist_id} | Token: {page_token} | Full Scan: {full_scan}"
@@ -151,9 +151,9 @@ class PlaylistManager:
         playlist_items_video_ids = [item.video_id for item in playlist_items]
 
         if (
-                first_video_id in playlist_items_video_ids
-                and not full_scan
-                and last_video_id == self.playlist_last_video_id
+            first_video_id in playlist_items_video_ids
+            and not full_scan
+            and last_video_id == self.playlist_last_video_id
         ):
             next_page_token = None
 
@@ -464,7 +464,7 @@ class PlaylistManager:
                     )
                     genre_obj, _ = Genre.objects.update_or_create(
                         slug=slugify(name_cleaned)
-                             or self.generate_hash(name_cleaned, 16),
+                        or self.generate_hash(name_cleaned, 16),
                         defaults={"name": name_cleaned},
                     )
                     playlist.genres.add(genre_obj, through_defaults={})
