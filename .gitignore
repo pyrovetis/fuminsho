@@ -292,7 +292,7 @@ dist
 .pnp.*
 
 # django static files
-public/
+# public/
 
 # django-compressor
 static/CACHE
