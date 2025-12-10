@@ -4,6 +4,7 @@
   "steps": {
     "build": {
       "commands": [
+        "ls -la",
         "python manage.py compress",
         "python manage.py collectstatic --noinput"
       ]
