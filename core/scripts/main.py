@@ -49,7 +49,6 @@ class PlaylistMetadata:
 class PlaylistManager:
     YOUTUBE_API_BASE = "https://www.googleapis.com/youtube/v3"
     OPENROUTER_API_BASE = "https://openrouter.ai/api/v1/chat/completions"
-    CDN_BASE_URL = "https://cdn.fuminsho.ir/images/playlists/"
     BATCH_SIZE = 50
     FTP_DIRECTORY = "/"
     AI_MODEL = "mistralai/ministral-3b"
@@ -60,9 +59,6 @@ class PlaylistManager:
         self.google_api_key = env("GOOGLE_API_KEY")
         self.openrouter_api_key = env("OPENROUTER_API_KEY")
         self.http_client = httpx.Client(timeout=60)
-        self.ftp_host = env("FTP_HOST", default=None)
-        self.ftp_user = env("FTP_USER", default=None)
-        self.ftp_pass = env("FTP_PASS", default=None)
         logger.info(f"🚀 Starting PlaylistManager for 📂 Playlist ID: {playlist_id}")
 
     def fetch_playlist_items(self, page_token: Optional[str] = None) -> dict:
@@ -160,8 +156,8 @@ class PlaylistManager:
             next_page_token = None
 
         self.bulk_update_db(playlist_items)
-        self.update_comments(playlist_items)
-        self.update_video_metadata(playlist_items)
+        # self.update_comments(playlist_items)
+        # self.update_video_metadata(playlist_items)
         self.update_thumbnails()
 
         if next_page_token:
@@ -203,7 +199,7 @@ class PlaylistManager:
 
     def update_thumbnails(self):
         logger.info(f"🖼️ Updating thumbnails for 📂 Playlist ID: {self.playlist_id}")
-        videos = Playlist.objects.filter(thumbnails__contains="ytimg")
+        videos = Playlist.objects.exclude(thumbnails__startswith="/public/")
 
         for video in videos:
             thumbnail = self._upload_thumbnail(video.thumbnails, video.video_id)
@@ -501,7 +497,7 @@ class PlaylistManager:
         return hex_digest[:length]
 
 
-def run(full_scan=False):
+def run(full_scan=True):
     playlist_manager = PlaylistManager(playlist_id=env("PLAYLIST_ID"))
-    playlist_manager.generate_playlist(full_scan=True)
+    playlist_manager.generate_playlist(full_scan=full_scan)
     playlist_manager.generate()
