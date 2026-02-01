@@ -179,16 +179,14 @@ class PlaylistManager:
         try:
             logger.info("🌐 Uploading image to server...")
             file_name_with_extension = f"{self.generate_hash(image_name)}.webp"
-            full_path = os.path.join(
-                settings.MEDIA_ROOT, "thumbnails", file_name_with_extension
-            )
+            relative_path = os.path.join("thumbnails", file_name_with_extension)
             file_address = f"{settings.MEDIA_URL}thumbnails/{file_name_with_extension}"
 
-            if os.path.exists(full_path):
+            if os.path.exists(file_address):
                 logger.info(f"📝 File already exists: {file_name_with_extension}")
                 return file_address
 
-            default_storage.save(full_path, compressed_image_io)
+            default_storage.save(relative_path, compressed_image_io)
 
             logger.info("⬆️ Uploading image to server...")
             return file_address
