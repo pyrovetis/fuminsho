@@ -1,22 +1,17 @@
 import hashlib
 import json
 import logging
-import os
 import re
 from dataclasses import dataclass
-from io import BytesIO
 from typing import List, Optional
 
 import httpx
 import isodate
-from django.core.files.storage import default_storage
 from django.db.models import Q
 from django.utils import timezone
 from django.utils.text import slugify
-from PIL import Image
 
 from core.models import Genre, Playlist, Song
-from fuminsho import settings
 from fuminsho.settings import env
 
 logger = logging.getLogger("fuminsho")
@@ -55,7 +50,7 @@ class PlaylistManager:
 
     def __init__(self, playlist_id: str):
         self.playlist_id = playlist_id
-        self.playlist_last_video_id = env("PLAYLIST_LAST_VIDEO_ID", default=None)
+        self.playlist_last_video_id = env("PLAYLIST_LAST_VIDEO_ID")
         self.google_api_key = env("GOOGLE_API_KEY")
         self.openrouter_api_key = env("OPENROUTER_API_KEY")
         self.http_client = httpx.Client(timeout=60)
@@ -156,53 +151,11 @@ class PlaylistManager:
             next_page_token = None
 
         self.bulk_update_db(playlist_items)
-        # self.update_comments(playlist_items)
-        # self.update_video_metadata(playlist_items)
-        self.update_thumbnails()
+        self.update_comments(playlist_items)
+        self.update_video_metadata(playlist_items)
 
         if next_page_token:
             self.generate_playlist(next_page_token)
-
-    def _upload_thumbnail(self, image_url, image_name):
-        logger.info(f"🖼️ Uploading thumbnail for 📂 Playlist ID: {self.playlist_id}")
-
-        response = self.http_client.get(image_url)
-        response.raise_for_status()
-
-        image = Image.open(BytesIO(response.content))
-        resized_image = image.resize((image.width // 2, image.height // 2))
-
-        compressed_image_io = BytesIO()
-        resized_image.save(compressed_image_io, format="WEBP", quality=90)
-        compressed_image_io.seek(0)
-
-        try:
-            logger.info("🌐 Uploading image to server...")
-            file_name_with_extension = f"{self.generate_hash(image_name)}.webp"
-            relative_path = os.path.join("thumbnails", file_name_with_extension)
-            file_address = f"{settings.MEDIA_URL}thumbnails/{file_name_with_extension}"
-
-            if os.path.exists(file_address):
-                logger.info(f"📝 File already exists: {file_name_with_extension}")
-                return file_address
-
-            default_storage.save(relative_path, compressed_image_io)
-
-            logger.info("⬆️ Uploading image to server...")
-            return file_address
-
-        except Exception as e:
-            logger.error(f"❗ Failed to upload thumbnail: {e}")
-            raise Exception(f"Failed to upload thumbnail: {e}")
-
-    def update_thumbnails(self):
-        logger.info(f"🖼️ Updating thumbnails for 📂 Playlist ID: {self.playlist_id}")
-        videos = Playlist.objects.exclude(thumbnails__startswith="/public/")
-
-        for video in videos:
-            thumbnail = self._upload_thumbnail(video.thumbnails, video.video_id)
-            video.thumbnails = thumbnail
-            video.save(update_fields=["thumbnails"])
 
     def fetch_comments(self, video_id: str) -> dict:
         logger.info(f"💬 Fetching comments for video 🆔 {video_id}")
@@ -487,7 +440,7 @@ class PlaylistManager:
     def get_last_thumbnail(self, thumbnails: dict) -> str:
         if not thumbnails.keys():
             return ""
-        return thumbnails.popitem()[1]["url"]
+        return thumbnails.get("default", {}).get("url", "")
 
     def generate_hash(self, input_string: str, length: int = 32) -> str:
         hash_object = hashlib.sha256(input_string.encode())
