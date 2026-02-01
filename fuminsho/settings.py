@@ -216,7 +216,7 @@ if discord_webhook_url:
 # compressor settings
 COMPRESS_ROOT = BASE_DIR / "static"
 COMPRESS_ENABLED = True
-COMPRESS_OFFLINE = False
+COMPRESS_OFFLINE = True
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
