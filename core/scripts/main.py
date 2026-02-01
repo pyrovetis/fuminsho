@@ -202,9 +202,6 @@ class PlaylistManager:
             raise Exception(f"Failed to upload thumbnail: {e}")
 
     def update_thumbnails(self):
-        if not all(env_var in env for env_var in ["FTP_HOST", "FTP_USER", "FTP_PASS"]):
-            logger.info("🖼️ Thumbnails not updated: FTP environment variables not set")
-            return
         logger.info(f"🖼️ Updating thumbnails for 📂 Playlist ID: {self.playlist_id}")
         videos = Playlist.objects.filter(thumbnails__contains="ytimg")
 
