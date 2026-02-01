@@ -13,7 +13,7 @@ def catch_exceptions(cancel_on_failure=False):
         def wrapper(*args, **kwargs):
             try:
                 return job_func(*args, **kwargs)
-            except Exception as e:
+            except Exception:
                 print(traceback.format_exc())
                 if cancel_on_failure:
                     return schedule.CancelJob
