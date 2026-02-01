@@ -7,4 +7,4 @@ cmds = [
     "python manage.py collectstatic --noinput",
 ]
 [start]
-cmd = "gunicorn -b 0.0.0.0:8000 -w 2 --log-file - --log-level debug fuminsho.wsgi"
+cmd = "gunicorn -b 0.0.0.0:8000 -w 2 --log-level debug --log-file - --access-logfile - --capture-output --enable-stdio-inheritance fuminsho.wsgi"
