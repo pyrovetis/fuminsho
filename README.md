@@ -13,7 +13,6 @@ The app also features a frontend designed with Tailwind CSS for a responsive and
 - Automated daily YouTube playlist data fetching and storage
 - Integration with OpenRouter for LLM-based genre and track analysis
 - Logs sent to Discord or stored locally
-- Optional FTP upload for playlist thumbnails
 - Simple installation and setup
 
 ---
@@ -22,8 +21,8 @@ The app also features a frontend designed with Tailwind CSS for a responsive and
 
 1. [Installation](#installation)
 2. [Environment Variables](#environment-variables)
-    - [Required Variables](#required-variables)
-    - [Optional Variables](#optional-variables)
+   - [Required Variables](#required-variables)
+   - [Optional Variables](#optional-variables)
 3. [Running the Project](#running-the-project)
 4. [License](#license)
 
@@ -98,10 +97,6 @@ POSTGRES_PORT=5432
 # Discord Webhook for logging (optional)
 DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/your-webhook
 
-# FTP Settings for Thumbnail Upload (optional)
-FTP_HOST=ftp.example.com
-FTP_USER=YourUsername
-FTP_PASS=YourPassword
 ```
 
 #### Obtaining API Keys
@@ -134,6 +129,7 @@ python manage.py runserver
 This project uses `django_extensions` to run scheduled scripts. Ensure this package is installed.
 
 - To run the `PlaylistManager` script:
+
   ```bash
   python manage.py runscript main
   ```
