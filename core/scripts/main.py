@@ -448,7 +448,7 @@ class PlaylistManager:
         return hex_digest[:length]
 
 
-def run(full_scan=True):
+def run(full_scan=False):
     playlist_manager = PlaylistManager(playlist_id=env("PLAYLIST_ID"))
     playlist_manager.generate_playlist(full_scan=full_scan)
     playlist_manager.generate()
