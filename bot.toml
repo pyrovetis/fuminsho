@@ -1,4 +1,4 @@
 providers = ['python']
 
 [start]
-cmd = "python manage.py runscript main"
+cmd = "python manage.py runscript scheduler"
