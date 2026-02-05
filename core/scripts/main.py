@@ -386,7 +386,7 @@ class PlaylistManager:
             .distinct()
         )
         for playlist in playlists:
-            if playlist.genres.exists() and playlist.songs.exists():
+            if playlist.genres.exists() or playlist.songs.exists():
                 logger.info(f"⏭️ Skipping existing video {playlist.title}")
 
                 continue
