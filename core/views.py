@@ -1,7 +1,5 @@
 import logging
 import os
-from typing import Optional
-
 from django.core.cache import cache
 from django.db.models import Count
 from django.http import HttpResponse
@@ -9,6 +7,7 @@ from django.shortcuts import render, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.cache import cache_control
+from typing import Optional
 
 from core.models import Playlist, Genre, Song
 from fuminsho import settings
@@ -132,7 +131,7 @@ class LogsView(BaseView):
         log_file_path = os.path.join(settings.BASE_DIR, "logs", "log")
         try:
             with open(log_file_path, "r", encoding="utf-8") as log_file:
-                log_content = log_file.read()[-200_000:]
+                log_content = log_file.read()[-50_000:]
 
             context = {"log_content": log_content}
             return self.render(context)
